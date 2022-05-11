@@ -3,7 +3,7 @@ import -window root work/screen.png
 # pic=images/scr$(date +%s).png
 
 convert work/screen.png -crop 320x320+15+42 work/screen.png # ! to check and fine tune
-# this should give exactly the image frame provided as work/.frame_ok.png
+# this should give exactly the image frame provided as work/frame_ok.png
 
 convert work/screen.png -resize 32x32 -type Grayscale -channel RGB -threshold 50% work/screen.png
 
