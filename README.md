@@ -24,7 +24,13 @@ Two libraries play a fundamental role in tamacare functionning.
 $ sudo apt install imagemagick xdotools
 ```
 
-Imagemagick is tamacare eyes: it captures the screen and processes what is seen. To do so, the R program calls imagemagick functions via the script: image_analysis/check.sh. The image is processed into a matrix of 32x32 black and white pixels and decomposed into elementary features. These features are compared to a bank of reference images, stored in the folder: image_analysis/resources.
+Imagemagick is tamacare eyes: it captures the screen and processes what is seen. To do so, the R program calls imagemagick functions via the script: image_analysis/check.sh.
+
+```
+$ chmod +x image_analysis/check.sh
+```
+
+The image is processed into a matrix of 32x32 black and white pixels and decomposed into elementary features. These features are compared to a bank of reference images, stored in the folder: image_analysis/resources.
 
 ![image](https://user-images.githubusercontent.com/13364928/167930291-cdbb5aed-6c5c-4c9b-be29-930eca31f6be.png)
 
