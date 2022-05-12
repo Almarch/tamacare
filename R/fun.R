@@ -98,9 +98,7 @@ clock = function(dir,Time = NULL,speed = "one",filename){
   return(NULL)
 }
 
-init = function(name, dir, x , y, filename){
-  # x %% 345
-  # y %% 375 including 30 of header
+init = function(name, dir, x = 0 , y = 0, filename){
   go = c(paste0("cd ",dir),
          paste0("nohup ./tamatool -l ",filename," </dev/null >/dev/null 2>&1 &"),
          "sleep .5",
@@ -108,16 +106,46 @@ init = function(name, dir, x , y, filename){
          "xdotool key t",
          "sleep .5",
          paste0("xdotool search --name \"TamaTool\" set_window --name \"",name,"\""),
-         
-         # if multiple windows split init() between these lines:
-         #paste0("xdotool search --name \"",name,"\" windowminimize --sync"))
-         #paste0("xdotool search --name \"",name,"\" windowmap --sync"),
-         
          focus(name),
          paste0("xdotool getactivewindow windowmove ",x," ",y))
   run(go)
   return(NULL)
 }
+
+init_multi = function(all_names,dir,xmax,collec){
+  stopifnot(length(all_names) == names(collec))
+  x = 0
+  y = 0
+  for(i in 1:length(all_names)){
+    it.collec = unlist(strsplit(collec[i],split="/"))
+    it.collec = it.collec[length(it.collec)]
+    go = c(paste0("cp ",collec[i]," ",dir,"/"),
+           paste0("cd ",dir),
+           paste0("nohup ./tamatool -l ",it.collec," </dev/null >/dev/null 2>&1 &"),
+           "sleep .5",
+           focus("TamaTool"),
+           "xdotool key t",
+           "sleep .5",
+           paste0("xdotool search --name \"TamaTool\" set_window --name \"",all_names[i],"\""),
+           paste0("xdotool search --name \"",all_names[i],"\" windowminimize --sync"))
+    run(go)
+  }
+  
+  for(i in 1:length(all_names)){
+    go = c(paste0("xdotool search --name \"",all_names[i],"\" windowmap --sync"),
+           focus(all_names[i]),
+           paste0("xdotool getactivewindow windowmove ",x * 345," ",y * 375))
+    run(go)
+    
+    x = x + 1
+    if(x %% xmax == 0) {
+      x = 0
+      y = y + 1
+    }
+  }
+  return(NULL)
+}
+
 
 hatch = function(name,speed = c("one","ten"), filename = NULL, and_kill = F, dir = NULL) {
   sp = set_speed(speed = speed,
