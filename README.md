@@ -8,7 +8,7 @@ To get started, you will need a tamagotchi. A ROM of the gen-1 strain circulates
 
 Tamacare is designed as an R program interacting with tamatool via a Linux system. Specifically, the global functioning can be summarized as such:
 
-![image](https://user-images.githubusercontent.com/13364928/167929935-03b8ff99-4d1a-4b28-9e21-d765f4386d25.png)
+![image](https://user-images.githubusercontent.com/13364928/168033595-c4a36432-498d-4c80-9e40-6f5f94aeb114.png)
 
 An R working environment is required. R can be installed from the CRAN (https://cran.r-project.org/), and the "png" library is required:
 
@@ -32,7 +32,7 @@ $ chmod +x image_analysis/check.sh
 
 The image is processed into a matrix of 32x32 black and white pixels and decomposed into elementary features. These features are compared to a bank of reference images, stored in the folder: image_analysis/resources.
 
-![image](https://user-images.githubusercontent.com/13364928/168033595-c4a36432-498d-4c80-9e40-6f5f94aeb114.png)
+![image](https://user-images.githubusercontent.com/13364928/167930291-cdbb5aed-6c5c-4c9b-be29-930eca31f6be.png)
 
 The image acquisition step is delicate. I invite you to launch image_analysis/check.sh step-by-step and control that the extracted image are conform (at the pixel level !). To help you in this fine tuning, that may depend on your system, a working example is provided as: image_analysis/resources/frame_ok.png.
 
