@@ -5,6 +5,7 @@ focus = function(name) {
 ABC = function(abc,name,speed) {
   if(speed == "one") delay = .03
   if(speed == "ten") delay = .003
+  if(speed == "max") delay = .001
   sp = set_speed(name = name, speed = speed)
   txt = c(focus(name),
           paste0("xdotool keydown ",abc," sleep ",delay," keyup ",abc),
