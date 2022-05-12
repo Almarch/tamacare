@@ -31,8 +31,8 @@ AB5 = function(name,speed = "one"){
   return(txt)
 }
 
-check = function(dir){
-  go = c(paste0("cd ",dir),
+check = function(dir_images){
+  go = c(paste0("cd ",dir_images),
          paste0("./check.sh"))
   run(go)
 }
@@ -60,15 +60,15 @@ set_speed = function(speed = c("one","ten","max"),name) {
   }
   return(list(a=a,b=b,s=s))
 }
-save_as = function(name,filename,dir, and_kill= F){
-  run(c(paste0("cd ",dir),
+save_as = function(name,filename,dir_tamatool, and_kill= F){
+  run(c(paste0("cd ",dir_tamatool),
         focus("TamaTool"),
         "xdotool key b",
         if(and_kill) paste0("xdotool search --name \"",name,"\" windowkill"),
         paste0("mv save0.bin ",filename)))
 }
 
-clock = function(dir,Time = NULL,speed = "one",filename){
+clock = function(dir_tamatool,Time = NULL,speed = "one",filename){
   
   if(is.null(Time)) Time = format(Sys.time(),"%H:%M")
   hr  = as.numeric(unlist(lapply(strsplit(Time,split=":"),function(x) return(x[[1]]))))
@@ -77,7 +77,7 @@ clock = function(dir,Time = NULL,speed = "one",filename){
   sp = set_speed(speed = speed, name  = name)
   
   ### launch
-  go = c(paste0("cd ",dir),
+  go = c(paste0("cd ",dir_tamatool),
          "nohup ./tamatool </dev/null >/dev/null 2>&1 &",
          "sleep 2")
   
@@ -94,12 +94,12 @@ clock = function(dir,Time = NULL,speed = "one",filename){
   run(go)
   
   ### save
-  save_as(dir=dir, filename = filename, name = "TamaTool", and_kill = T)
+  save_as(dir_tamatool=dir_tamatool, filename = filename, name = "TamaTool", and_kill = T)
   return(NULL)
 }
 
-init = function(name, dir, x = 0 , y = 0, filename){
-  go = c(paste0("cd ",dir),
+init = function(name, dir_tamatool, x = 0, y = 0, filename){
+  go = c(paste0("cd ",dir_tamatool),
          paste0("nohup ./tamatool -l ",filename," </dev/null >/dev/null 2>&1 &"),
          "sleep .5",
          focus("TamaTool"),
@@ -112,15 +112,15 @@ init = function(name, dir, x = 0 , y = 0, filename){
   return(NULL)
 }
 
-init_multi = function(all_names,dir,xmax,collec){
+init_multi = function(all_names,dir_tamatool,xmax,collec){
   stopifnot(length(all_names) == names(collec))
   x = 0
   y = 0
   for(i in 1:length(all_names)){
     it.collec = unlist(strsplit(collec[i],split="/"))
     it.collec = it.collec[length(it.collec)]
-    go = c(paste0("cp ",collec[i]," ",dir,"/"),
-           paste0("cd ",dir),
+    go = c(paste0("cp ",collec[i]," ",dir_tamatool,"/"),
+           paste0("cd ",dir_tamatool),
            paste0("nohup ./tamatool -l ",it.collec," </dev/null >/dev/null 2>&1 &"),
            "sleep .5",
            focus("TamaTool"),
@@ -147,7 +147,7 @@ init_multi = function(all_names,dir,xmax,collec){
 }
 
 
-hatch = function(name,speed = c("one","ten"), filename = NULL, and_kill = F, dir = NULL) {
+hatch = function(name,speed = c("one","ten"), filename = NULL, and_kill = F, dir_tamatool = NULL) {
   sp = set_speed(speed = speed,
                  name = name)
   go = c(C(speed = "one",name = name),
@@ -159,11 +159,11 @@ hatch = function(name,speed = c("one","ten"), filename = NULL, and_kill = F, dir
          sp$b,
          "sleep 10")
   run(go)
-  if(!is.null(filename)) save_as(dir = dir, name = name, filename = filename, and_kill = and_kill)
+  if(!is.null(filename)) save_as(dir_tamatool = dir_tamatool, name = name, filename = filename, and_kill = and_kill)
   return(NULL)
 }
 
-feed = function(name,dir,speed,what = "meal",prev=NULL,
+feed = function(name,dir_images,speed,what = "meal",prev=NULL,
                 ntimes = 1, quick = F, arrow) {
   require(png)
   
@@ -175,8 +175,8 @@ feed = function(name,dir,speed,what = "meal",prev=NULL,
         B(name = name, speed = speed)))
   
   if(is.null(prev)){
-    check(dir)
-    sel = readPNG(paste0(dir,"/work/sel.png"))
+    check(dir_images)
+    sel = readPNG(paste0(dir_images,"/work/sel.png"))
     if(all(sel == arrow)) prev = "sweet" else prev = "meal"
     
     if(speed == "ten"){
@@ -223,7 +223,7 @@ clean = function(name,speed) {
   return(NULL)
 }
 
-heal = function(name,speed,dir,skull) {
+heal = function(name,speed,dir_images,skull) {
   require(png)
   sp = set_speed(speed,name)
   
@@ -231,16 +231,16 @@ heal = function(name,speed,dir,skull) {
          rep(c(B(name = name, speed = speed),
                paste0("sleep ", 6*sp$s))))
   run(go)
-  check(dir)
-  top = readPNG(paste0(dir,"/work/top.png"))
+  check(dir_images)
+  top = readPNG(paste0(dir_images,"/work/top.png"))
   
   if(speed == "one"){
     while(all(top == skull)){
       go = c(B(name = name, speed = speed),
              paste0("sleep ", 6*sp$s))
       run(go)
-      check(dir)
-      top = readPNG(paste0(dir,"/work/top.png"))
+      check(dir_images)
+      top = readPNG(paste0(dir_images,"/work/top.png"))
     }
     run(c(rep(C(name = name, speed = speed),2),
           paste0("sleep ",1*sp$s))) # exit
@@ -256,8 +256,8 @@ heal = function(name,speed,dir,skull) {
              c(rep(C(name = name, speed = speed),2),
                paste0("sleep ",1*sp$s)))
       run(go)
-      check(dir)
-      top = readPNG(paste0(dir,"/work/top.png"))
+      check(dir_images)
+      top = readPNG(paste0(dir_images,"/work/top.png"))
     }
   }
   
@@ -285,7 +285,7 @@ light = function(name, speed, what = "off", prev = "on") {
   run(go)
 }
 
-params = function(name, speed, dir, heart) {
+params = function(name, speed, dir_images, heart) {
   require(png)
   par = c(happy = 0,hungry = 0)
   sp = set_speed(name = name, speed = speed)
@@ -296,11 +296,11 @@ params = function(name, speed, dir, heart) {
          rep(B(name = name, speed = speed),2)) # hungry
   run(go)
   
-  check(dir)
-  h1 = readPNG(paste0(dir,"/work/sel.png"))
-  h2 = readPNG(paste0(dir,"/work/h2.png"))
-  h3 = readPNG(paste0(dir,"/work/h3.png"))
-  h4 = readPNG(paste0(dir,"/work/bot.png"))
+  check(dir_images)
+  h1 = readPNG(paste0(dir_images,"/work/sel.png"))
+  h2 = readPNG(paste0(dir_images,"/work/h2.png"))
+  h3 = readPNG(paste0(dir_images,"/work/h3.png"))
+  h4 = readPNG(paste0(dir_images,"/work/bot.png"))
   if(all(h1 == heart)) par["hungry"] = par["hungry"] + 1
   if(all(h2 == heart)) par["hungry"] = par["hungry"] + 1
   if(all(h3 == heart)) par["hungry"] = par["hungry"] + 1
@@ -318,11 +318,11 @@ params = function(name, speed, dir, heart) {
     run(go)
   }
   
-  check(dir)
-  h1 = readPNG(paste0(dir,"/work/sel.png"))
-  h2 = readPNG(paste0(dir,"/work/h2.png"))
-  h3 = readPNG(paste0(dir,"/work/h3.png"))
-  h4 = readPNG(paste0(dir,"/work/bot.png"))
+  check(dir_images)
+  h1 = readPNG(paste0(dir_images,"/work/sel.png"))
+  h2 = readPNG(paste0(dir_images,"/work/h2.png"))
+  h3 = readPNG(paste0(dir_images,"/work/h3.png"))
+  h4 = readPNG(paste0(dir_images,"/work/bot.png"))
   if(all(h1 == heart)) par["happy"] = par["happy"] + 1
   if(all(h2 == heart)) par["happy"] = par["happy"] + 1
   if(all(h3 == heart)) par["happy"] = par["happy"] + 1
@@ -334,14 +334,14 @@ params = function(name, speed, dir, heart) {
   return(par)
 }
 
-get_ref = function(dir){
+get_ref = function(dir_images){
   # get the references rasters
-  refs = dir(paste0(dir,"/resources"))
+  refs = dir(paste0(dir_images,"/resources"))
   refs = gsub(x = refs,pattern = ".png",replacement="")
   
   ref = list()
   for(r in refs){
-    ref[[r]] = readPNG(paste0(dir,"/resources/",r,".png"))
+    ref[[r]] = readPNG(paste0(dir_images,"/resources/",r,".png"))
   }
   return(ref)
 }
@@ -437,14 +437,14 @@ tamacare = function(dir_images,
         # if not asleep (and after cleaning the poop): heal
         if(all(top == ref$skull)){
           print(paste(Sys.time(),":",name,"is sick. Let's heal it"))
-          heal(name = name, speed = speed, dir = dir_images,skull = ref$skull)
+          heal(name = name, speed = speed, dir_images = dir_images,skull = ref$skull)
         }
         
         # check param
         if(((Sys.time() > tlastpar + tpar) | all(need == ref$cry)) & !is.asleep) {
           
           # param check
-          par = params(name = name, speed = speed, dir = dir_images, heart = ref$heart_full)
+          par = params(name = name, speed = speed, dir_images = dir_images, heart = ref$heart_full)
           print(paste(Sys.time(),":"," How is",name,"going ? Parameters:"))
           print(paste(c("Happy: ",rep("<3",times=par[["happy"]])),collapse=""))
           print(paste(c("Hungry: ",rep("<3",times=par[["hungry"]])),collapse=""))
@@ -461,7 +461,7 @@ tamacare = function(dir_images,
           if(par[["hungry"]] < 4){
             feed(name = name,speed = speed,
                  what = "meal",prev=prev,
-                 dir = dir_images,
+                 dir_images = dir_images,
                  arrow=ref$arrow,
                  ntimes = 4 - par[["hungry"]])
             prev = "meal"
@@ -472,7 +472,7 @@ tamacare = function(dir_images,
           if(par[["happy"]] < 3){
             feed(name = name,speed = speed,
                  what = "sweet",prev = prev,
-                 dir = dir_images,
+                 dir_images = dir_images,
                  arrow=ref$arrow,
                  ntimes = 3 - par[["happy"]])
             prev = "sweet"
@@ -493,7 +493,7 @@ tamacare = function(dir_images,
         if(tinstant > tlastsav + tsav) {
           print(paste(Sys.time(),":","We had fun. Let's save this party"))
           save_as(name=name,
-                  dir = dir_tamatool,
+                  dir_tamatool = dir_tamatool,
                   filename=paste0(name,"_",
                                   round((tinstant - t0) / 3600,2),
                                   ".bin"))
