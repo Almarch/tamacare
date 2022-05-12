@@ -46,6 +46,7 @@ The shell script tamacare.sh calls R procedures that are listed in the R folder:
 -	proc_clock.R sets up the time of the virtual device.
 -	proc_hatch.R launches the incubation and waits the appropriate time.
 -	proc_tamacare.R is the core procedure that cares for the tamagotchi. In a nutshell, this is a loop that regularly observes the screen and takes actions if needed. It can be stopped by 2 events: the closure of the tamatool window (NB: this is not instant and you may experience some xdotool interference for a few seconds/minutes) ; or the death – sorry, I meant the departure for its home planet of your beloved pet.
+-	proc_multiple.R is available in the R folder but not called from the tamacare.sh launcher. Basically, once you've gathered a tamagotchi collection in a folder, you can use this function to quickly display your zoo. Tamacare is not able to care for more than 1 tamagotchi so you will have to assume this charge.
 -	proc_analysis.R transforms the log of the proc_tamacare.R call into a graphical display, that allows studying the events that occurred all along your tamagotchi life. For instance, the first 2 days of your tamagotchi may look like this:
 
 ![image](https://user-images.githubusercontent.com/13364928/167933691-f248e14d-dbbb-4736-bbac-49fbe51404a8.png)
