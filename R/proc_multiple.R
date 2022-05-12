@@ -1,13 +1,10 @@
 
 source("R/fun.R")
 
-args = (commandArgs(TRUE))
-for(i in 1:length(args)) eval(parse(text = args[[i]]))
+dir_collection = "../collection"
+to_display = sample(dir("../collection"),size = 6, replace = FALSE)
 
-all_names =  all_names[1:max(length(dir(dir_collection)))]
-
-init_multi(all_names = all_names,
-           dir_tamatool  = dir_tam,
+init_multi(all_names = gsub(to_display,pattern = ".bin",replacement = ""),
+           dir_tamatool  = "~/Tamago/tamatool/linux",
            xmax = 3,
-           collec = paste0(dir_collection,"/",
-                           sample(dir(dir_collection),length(all_names),F)))
+           collec = paste0(dir_collection,"/",to_display))
