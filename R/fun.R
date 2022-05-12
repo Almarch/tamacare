@@ -10,7 +10,7 @@ ABC = function(abc,name,speed) {
   txt = c(focus(name),
           paste0("xdotool keydown ",abc," sleep ",delay," keyup ",abc),
           paste0("sleep ",round(.5*sp$s,3)))
-return(txt)
+  return(txt)
 }
 A = function(name,speed="one") {
   ABC("Left",name=name,speed=speed)
@@ -84,13 +84,13 @@ clock = function(dir,Time = NULL,speed = "one",filename){
   ### set clock
   go = c(go,
          B(speed = speed,name = name),
-          "sleep 1",
-          sp$a,
-          rep(A(speed = speed,name = name),
-              times = hr),
-          rep(B(speed = speed,name = name),
-              times = min),
-          sp$b)
+         "sleep 1",
+         sp$a,
+         rep(A(speed = speed,name = name),
+             times = hr),
+         rep(B(speed = speed,name = name),
+             times = min),
+         sp$b)
   run(go)
   
   ### save
@@ -123,16 +123,16 @@ hatch = function(name,speed = c("one","ten"), filename = NULL, and_kill = F, dir
   sp = set_speed(speed = speed,
                  name = name)
   go = c(C(speed = "one",name = name),
-          "sleep .3",
-          B(speed = "one",name = name),
-          "sleep 3",
-          sp$a,
-          paste0("sleep ",round((5*60-10)*sp$s,3)),
-          sp$b,
-          "sleep 10")
-   run(go)
-   if(!is.null(filename)) save_as(dir = dir, name = name, filename = filename, and_kill = and_kill)
-   return(NULL)
+         "sleep .3",
+         B(speed = "one",name = name),
+         "sleep 3",
+         sp$a,
+         paste0("sleep ",round((5*60-10)*sp$s,3)),
+         sp$b,
+         "sleep 10")
+  run(go)
+  if(!is.null(filename)) save_as(dir = dir, name = name, filename = filename, and_kill = and_kill)
+  return(NULL)
 }
 
 feed = function(name,dir,speed,what = "meal",prev=NULL,
@@ -158,7 +158,7 @@ feed = function(name,dir,speed,what = "meal",prev=NULL,
             B(name = name, speed = speed)))
     }
   }
-
+  
   go = c(if(prev != what) A(name = name, speed = speed), # select right meal
          rep(c(B(name = name, speed = speed), # select meal
                paste0("sleep ", short_sleep*sp$s)),
@@ -232,7 +232,7 @@ heal = function(name,speed,dir,skull) {
       top = readPNG(paste0(dir,"/work/top.png"))
     }
   }
-
+  
   return(NULL)
 }
 
@@ -286,7 +286,7 @@ params = function(name, speed, dir, heart) {
     run(c(rep(C(name = name, speed = speed),2),
           paste0("sleep ",1*sp$s))) # exit
     go = c(rep(A(name = name, speed = speed),6), # select params
-            rep(B(name = name, speed = speed),4)) # happy
+           rep(B(name = name, speed = speed),4)) # happy
     run(go)
   }
   
@@ -327,7 +327,7 @@ tamacare = function(dir_images,
   require(png)
   sp = set_speed(speed=speed,name=name)
   ref = get_ref(dir_images)
-
+  
   t0 <- Sys.time()
   tlastobs = t0 - max(tobs,tpar)
   tlastpar = t0 - max(tobs,tpar)
@@ -545,29 +545,20 @@ analysis = function(file.in,file.out,speed){
   ev = which(tab$event == "sleep")
   if(length(ev)>1) for(i in 1:length(ev)){
     abline(v = tab$time[ev[i]], col = "black", lwd = 3)
-    # polygon(c(rep(tab$time[ev[i]],2),
-    #           rep(tab$time[ev[i]+1],2)),c(-4,4,4,-4),col="black")
   }
-  ev = which(tab$event == "poop")
-  if(length(ev)>1) for(i in 1:length(ev)){
-    points(tab$time[ev[i]],5,pch = 19, cex=2, col = "green")
-    points(tab$time[ev[i]],5,pch = 1,  cex=2)
+  
+  evTab = data.frame(event = c("poop", "poop2","poop2","sick"  ,"disc"     ),
+                     col   = c("green","green","green","purple","lightblue"),
+                     pos   = c( 5     , 5     , 5.5   , 6      , 7         ),
+                     stringsAsFactors = F)
+  for(i.ev in 1:nrow(evTab)){
+    ev = which(tab$event == evTab$event[i.ev])
+    if(length(ev)>1) for(i in 1:length(ev)){
+      points(tab$time[ev[i]],evTab$pos[i.ev],pch = 19, cex=2, col = evTab$col[i.ev])
+      points(tab$time[ev[i]],evTab$pos[i.ev],pch = 1,  cex=2)
+    }
   }
-  ev = which(tab$event == "poop2")
-  if(length(ev)>1) for(i in 1:length(ev)){
-    points(rep(tab$time[ev[i]],2),5:6,pch = 19, cex=2, col = "green")
-    points(rep(tab$time[ev[i]],2),5:6,pch = 1,  cex=2)
-  }
-  ev = which(tab$event == "sick")
-  if(length(ev)>1) for(i in 1:length(ev)){
-    points(tab$time[ev[i]],6,pch = 19, cex=2, col = "purple")
-    points(tab$time[ev[i]],6,pch = 1,  cex=2)
-  }
-  ev = which(tab$event == "disc")
-  if(length(ev)>1) for(i in 1:length(ev)){
-    points(tab$time[ev[i]],7,pch = 19,cex=2, col = "lightblue")
-    points(tab$time[ev[i]],7,pch = 1, cex=2)
-  }
+  
   par(mai=rep(0,4))
   plot(1,1,type="n",axes=F)
   legend("center",
@@ -582,7 +573,3 @@ analysis = function(file.in,file.out,speed){
          bty = "n")
   dev.off()
 }
-
-
-
-
