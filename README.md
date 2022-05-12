@@ -21,7 +21,7 @@ An R working environment is required. R can be installed from the CRAN (https://
 Two libraries play a fundamental role in tamacare functionning.
 
 ```
-$ sudo apt install imagemagick xdotools
+$ sudo apt install imagemagick xdotool
 ```
 
 Imagemagick is tamacare eyes: it captures the screen and processes what is seen. To do so, the R program calls imagemagick functions via the script: image_analysis/check.sh.
@@ -32,11 +32,11 @@ $ chmod +x image_analysis/check.sh
 
 The image is processed into a matrix of 32x32 black and white pixels and decomposed into elementary features. These features are compared to a bank of reference images, stored in the folder: image_analysis/resources.
 
-![image](https://user-images.githubusercontent.com/13364928/167930291-cdbb5aed-6c5c-4c9b-be29-930eca31f6be.png)
+![image](https://user-images.githubusercontent.com/13364928/168033595-c4a36432-498d-4c80-9e40-6f5f94aeb114.png)
 
 The image acquisition step is delicate. I invite you to launch image_analysis/check.sh step-by-step and control that the extracted image are conform (at the pixel level !). To help you in this fine tuning, that may depend on your system, a working example is provided as: image_analysis/resources/frame_ok.png.
 
-Xdotools is tamacares hands: it emulates keyboard inputs to control tamatool. These commands are launched from a temporary script: todo.sh. Be careful, they will interact with any other use of the computer as long as tamacare is running. Unfortunately there is currently no other solution than leaving alone the dedicated computer as it cares for its resident.
+Xdotool is tamacares hands: it emulates keyboard inputs to control tamatool. These commands are launched from a temporary script: todo.sh. Be careful, they will interact with any other use of the computer as long as tamacare is running. Unfortunately there is currently no other solution than leaving alone the dedicated computer as it cares for its resident.
 
 ## Use
 
@@ -45,7 +45,7 @@ Tamacare can be launched from a script: tamacare.sh. It is tuned to deliver a ma
 The shell script tamacare.sh calls R procedures that are listed in the R folder:
 -	proc_clock.R sets up the time of the virtual device.
 -	proc_hatch.R launches the incubation and waits the appropriate time.
--	proc_tamacare.R is the core procedure that cares for the tamagotchi. In a nutshell, this is a loop that regularly observes the screen and takes actions if needed. It can be stopped by 2 events: the closure of the tamatool window (NB: this is not instant and you may experience some xdotools interference for a few seconds/minutes) ; or the death – sorry, I meant the departure for its home planet of your beloved pet.
+-	proc_tamacare.R is the core procedure that cares for the tamagotchi. In a nutshell, this is a loop that regularly observes the screen and takes actions if needed. It can be stopped by 2 events: the closure of the tamatool window (NB: this is not instant and you may experience some xdotool interference for a few seconds/minutes) ; or the death – sorry, I meant the departure for its home planet of your beloved pet.
 -	proc_analysis.R transforms the log of the proc_tamacare.R call into a graphical display, that allows studying the events that occurred all along your tamagotchi life. For instance, the first 2 days of your tamagotchi may look like this:
 
 ![image](https://user-images.githubusercontent.com/13364928/167933691-f248e14d-dbbb-4736-bbac-49fbe51404a8.png)
