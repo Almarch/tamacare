@@ -1,6 +1,4 @@
-# sudo apt install imagemagick
 import -window root work/screen.png
-# pic=images/scr$(date +%s).png
 
 convert work/screen.png -crop 320x320+15+42 work/screen.png # ! to check and fine tune
 # this should give exactly the image frame provided as work/frame_ok.png
@@ -30,7 +28,5 @@ convert work/screen.png -crop 8x8+1+20 work/sel.png
 convert work/screen.png -crop 8x8+9+20 work/h2.png
 convert work/screen.png -crop 8x8+17+20 work/h3.png
 # h4 = bot
-
-
 
 rm work/screen.png
