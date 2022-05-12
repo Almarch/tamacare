@@ -17,18 +17,18 @@ if [ "$new_tam" = true ] ; then
 
 # set time
   Time=$(date "+%H:%M")
-  R_BATCH_OPTIONS="--args dir='$dir_tamatool';Time='$Time';name='$tam_name';speed='ten'"
+  R_BATCH_OPTIONS="--args dir_tam='$dir_tamatool';Time='$Time';name='$tam_name';speed='ten'"
   R CMD BATCH --no-save "$R_BATCH_OPTIONS" $R_opt R/proc_clock.R /dev/null
 
 # hatch
-  R_BATCH_OPTIONS="--args dir='$dir_tamatool';name='$tam_name';speed='$tam_speed'"
+  R_BATCH_OPTIONS="--args dir_tam='$dir_tamatool';name='$tam_name';speed='$tam_speed'"
   R CMD BATCH --no-save "$R_BATCH_OPTIONS" $R_opt R/proc_hatch.R /dev/null
 # backup for tamacare
   to_load="${tam_name}.bin"
 fi
 
 # tamacare
-R_BATCH_OPTIONS="--args dir='$dir_tamatool';dir_images='image_analysis';name='$tam_name';speed='$tam_speed';tobs=$time_obs;tpar=$time_param;tsav=$time_save;to_load='$to_load';disc=$disc"
+R_BATCH_OPTIONS="--args dir_tam='$dir_tamatool';dir_images='image_analysis';name='$tam_name';speed='$tam_speed';tobs=$time_obs;tpar=$time_param;tsav=$time_save;to_load='$to_load';disc=$disc"
 R CMD BATCH --no-save "$R_BATCH_OPTIONS" $R_opt R/proc_tamacare.R log.txt
 
 # life summary
