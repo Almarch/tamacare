@@ -34,7 +34,7 @@ The image is processed into a matrix of 32x32 black and white pixels and decompo
 
 ![image](https://user-images.githubusercontent.com/13364928/167930291-cdbb5aed-6c5c-4c9b-be29-930eca31f6be.png)
 
-The image acquisition step is delicate. I invite you to launch image_analysis/check.sh step-by-step and control that the extracted image are conform (at the pixel level !). To help you in this fine tuning, that may depend on your system, a working example is provided as: image_analysis/resources/frame_ok.png.
+The image acquisition step is delicate. I invite you to launch image_analysis/check.sh step-by-step and control that the extracted image are conform (at the pixel level !). To help you in this fine tuning, that may depend on your system, a working example is provided as: image_analysis/work/frame_ok.png.
 
 Xdotool is tamacares hands: it emulates keyboard inputs to control tamatool. These commands are launched from a temporary script: todo.sh. Be careful, they will interact with any other use of the computer as long as tamacare is running. Unfortunately there is currently no other solution than leaving alone the dedicated computer as it cares for its resident.
 
