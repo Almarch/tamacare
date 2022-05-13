@@ -495,7 +495,7 @@ tamacare = function(dir_images,
           save_as(name=name,
                   dir_tamatool = dir_tamatool,
                   filename=paste0(name,"_",
-                                  as.numeric(round(difftime(tinstant,t0,units = "hours")*sp$s,0)),
+                                  as.numeric(round(difftime(tinstant,t0,units = "hours")/sp$s,0)),
                                   ".bin"))
           tlastsav = Sys.time()
         }
