@@ -500,7 +500,7 @@ tamacare = function(dir_images,
           tlastsav = Sys.time()
         }
         if(tinstant < tlastobs + tobs) {
-          run(paste0("sleep ",(tlastobs + tobs) - tinstant))
+          run(paste0("sleep ",difftime(tlastobs + tobs,tinstant,units = "secs")))
         }
         tlastobs = Sys.time()
       } # dead 1
