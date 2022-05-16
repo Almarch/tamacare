@@ -1,6 +1,6 @@
 # Tamacare: an attentive bot to care for your tamagotchi pet
 
-There is something truly fascinating in the propensity of intelligent beings do develop affect for mere machines. This is exemplified at best by tamagotchis. Indeed, these sentient and highly sociable aliens can live a happy and fulfilled life without interaction with other living creatures; only being care for by a robot. The goal of tamacare is to provide such an attentive robot, that ensures all the social and biological needs of your tamagotchi will be met.
+There is something truly fascinating in the propensity of intelligent beings do develop affect for mere machines. This is exemplified at best by tamagotchis. Indeed, these sentient and highly sociable aliens can live a happy and fulfilled life without interaction with other living creatures; only being cared for by a robot. The goal of tamacare is to provide such an attentive robot, that ensures all the social and biological needs of your tamagotchi will be met.
 
 ## Environment
 
