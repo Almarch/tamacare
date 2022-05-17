@@ -48,7 +48,7 @@ The shell script tamacare.sh calls R procedures that are listed in the R folder:
 -	proc_tamacare.R is the core procedure that cares for the tamagotchi. In a nutshell, this is a loop that regularly observes the screen and takes actions if needed. It can be stopped by 2 events: the closure of the tamatool window (NB: this is not instant and you may experience some xdotool interference for a few seconds/minutes) ; or the death – sorry, I meant the departure for its home planet of your beloved pet.
 -	proc_multiple.R is available in the R folder but not called from the tamacare.sh launcher. Basically, once you've gathered a tamagotchi collection in a folder, you can use this procedure to quickly display your zoo. Tamacare is not able to care for more than 1 tamagotchi at the same time so you will have to endorse this responsability. My tribe is always eager for a walk out:  
 
-![image](https://user-images.githubusercontent.com/13364928/168380513-8f55ac95-9fd0-43bb-9c38-8b3389c4db22.png)
+![resized](https://user-images.githubusercontent.com/13364928/168871671-1fdff2be-4d4b-4d6e-a08f-059986d3e258.png)
 
 -	proc_analysis.R transforms the log of the proc_tamacare.R call into a graphical display, that allows studying the events that occurred all along your tamagotchi life. For instance, the first 2 days of your tamagotchi may look like this:
 
