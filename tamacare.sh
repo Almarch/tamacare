@@ -3,6 +3,7 @@ dir_tamatool=~/.../tamatool/linux # the directory that contains tamatool
 new_tam=true           # do you need to launch a new tamagotchi ? => set up clock and wait up to eclosion
 tam_name='Guizmo'      # the tamagotchi name
 tam_speed='one'        # accepted values are "one" or "ten" (maximum speed doesn't work reliabily)
+gen='gen1'             # 'gen1' is the native ROM generation. 'gen2' uses edited sprites to emulate the second generation. 
 to_load='Guizmo.bin'   # the backup file to load, if starting from an existing (=> new_tam=false) 
 
 time_obs=30       # How long (sec.) should the system wait between 2 obs of the main screen
@@ -21,14 +22,14 @@ if [ "$new_tam" = true ] ; then
   R CMD BATCH --no-save "$R_BATCH_OPTIONS" $R_opt R/proc_clock.R /dev/null
 
 # hatch
-  R_BATCH_OPTIONS="--args dir_tam='$dir_tamatool';name='$tam_name';speed='$tam_speed'"
+  R_BATCH_OPTIONS="--args dir_tam='$dir_tamatool';name='$tam_name';speed='$tam_speed';gen='$gen'"
   R CMD BATCH --no-save "$R_BATCH_OPTIONS" $R_opt R/proc_hatch.R /dev/null
 # backup for tamacare
   to_load="${tam_name}.bin"
 fi
 
 # tamacare
-R_BATCH_OPTIONS="--args dir_tam='$dir_tamatool';dir_images='image_analysis';name='$tam_name';speed='$tam_speed';tobs=$time_obs;tpar=$time_param;tsav=$time_save;to_load='$to_load';disc=$disc"
+R_BATCH_OPTIONS="--args dir_tam='$dir_tamatool';dir_images='image_analysis';name='$tam_name';speed='$tam_speed';tobs=$time_obs;tpar=$time_param;tsav=$time_save;to_load='$to_load';disc=$disc;gen='$gen'"
 R CMD BATCH --no-save "$R_BATCH_OPTIONS" $R_opt R/proc_tamacare.R log.txt
 
 # life summary
