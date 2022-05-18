@@ -68,7 +68,7 @@ save_as = function(name,filename,dir_tamatool, and_kill= F){
         paste0("mv save0.bin ",filename)))
 }
 
-clock = function(dir_tamatool,Time = NULL,speed = "one",filename){
+clock = function(dir_tamatool,Time = NULL,speed = "one",filename,gen=c("gen1","gen2")){
   
   if(is.null(Time)) Time = format(Sys.time(),"%H:%M")
   hr  = as.numeric(unlist(lapply(strsplit(Time,split=":"),function(x) return(x[[1]]))))
@@ -77,7 +77,9 @@ clock = function(dir_tamatool,Time = NULL,speed = "one",filename){
   sp = set_speed(speed = speed, name  = name)
   
   ### launch
-  go = c(paste0("cd ",dir_tamatool),
+  go = c(paste0("cp sprites/",gen,".png ",dir_tamatool,"/data.png"),
+         paste0("cd ",dir_tamatool),
+         "./tamatool -M data.png",
          "nohup ./tamatool </dev/null >/dev/null 2>&1 &",
          "sleep 2")
   
