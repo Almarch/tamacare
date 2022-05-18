@@ -98,8 +98,10 @@ clock = function(dir_tamatool,Time = NULL,speed = "one",filename){
   return(NULL)
 }
 
-init = function(name, dir_tamatool, x = 0, y = 0, filename){
-  go = c(paste0("cd ",dir_tamatool),
+init = function(name, gen = c("gen1","gen2"), dir_tamatool, x = 0, y = 0, filename){
+  go = c(paste0("cp sprites/",gen,".png ",dir_tamatool,"/data.png"),
+         paste0("cd ",dir_tamatool),
+         "./tamatool -M data.png",
          paste0("nohup ./tamatool -l ",filename," </dev/null >/dev/null 2>&1 &"),
          "sleep .5",
          focus("TamaTool"),
@@ -112,15 +114,20 @@ init = function(name, dir_tamatool, x = 0, y = 0, filename){
   return(NULL)
 }
 
-init_multi = function(all_names,dir_tamatool,xmax,collec){
+init_multi = function(all_names,dir_tamatool,xmax,collec,gen = c("gen1","gen2")){
   stopifnot(length(all_names) == names(collec))
+  stopifnot(length(all_names) == length(gen) | length(gen) == 1)
+  if(length(gen) == 1) gen = rep(gen,length(all_names))
+  
   x = 0
   y = 0
   for(i in 1:length(all_names)){
     it.collec = unlist(strsplit(collec[i],split="/"))
     it.collec = it.collec[length(it.collec)]
-    go = c(paste0("cp ",collec[i]," ",dir_tamatool,"/"),
+    go = c(paste0("cp sprites/",gen[i],".png ",dir_tamatool,"/data.png"),
+           paste0("cp ",collec[i]," ",dir_tamatool,"/"),
            paste0("cd ",dir_tamatool),
+           "./tamatool -M data.png",
            paste0("nohup ./tamatool -l ",it.collec," </dev/null >/dev/null 2>&1 &"),
            "sleep .5",
            focus("TamaTool"),
