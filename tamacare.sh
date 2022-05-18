@@ -18,7 +18,7 @@ if [ "$new_tam" = true ] ; then
 
 # set time
   Time=$(date "+%H:%M")
-  R_BATCH_OPTIONS="--args dir_tam='$dir_tamatool';Time='$Time';name='$tam_name';speed='ten'"
+  R_BATCH_OPTIONS="--args dir_tam='$dir_tamatool';Time='$Time';name='$tam_name';speed='ten';gen='$gen'"
   R CMD BATCH --no-save "$R_BATCH_OPTIONS" $R_opt R/proc_clock.R /dev/null
 
 # hatch
