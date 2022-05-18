@@ -40,7 +40,9 @@ Xdotool is tamacares hands: it emulates keyboard inputs to control tamatool. The
 
 ## Use
 
-Tamacare can be launched from a script: tamacare.sh. It is tuned to deliver a mametchi, the optimal evolution your tamagotchi can expect. By varying the time_obs, time_param and disc parameters, you should be able to decline all possible tamagotchi evolutions for the gen-1 strain. Maybe will you also be able to discover the secret character? The parameters are listed and described as the file header. The parameter dir_tamatool is the directory of your tamatool executable file. The parameter tam_speed can take the values “one” or “ten”, both working well. The value “max” is also available but tamacare cannot follow the pace. Beware the file name “save0.bin” must be available in the tamatool/linux folder.
+Tamacare can be launched from a script: tamacare.sh. It is tuned to deliver a mametchi, the optimal evolution in terms of health and lifespan. By varying the time_obs, time_param and disc parameters, you can decline all possible tamagotchi evolutions for the gen-1 strain. The parameters are listed and described as the file header. The parameter dir_tamatool is the directory of the tamatool executable file. The parameter tam_speed can take the values “one” or “ten”, both working well. The value “max” is also available but tamacare cannot follow the pace. Beware the file name “save0.bin” must be available in the tamatool/linux folder.
+
+Tamatool is not only the ROM emulator, it also provides a tool to edit the ROM's sprites in a clean way. Using this feature, and thanks to the respective closeness of gen-1 and gen-2 characters, it is possible to switch the sprites from one generation to another. This is not a perfect emulation of gen-2: some animations vary slightly, and the "number game" is not available. Tamacare comes with 2 transgenic constructions in the sprites folder ("gen1" which is native from the ROM, and the manually edited one "gen2"), allowing you to mutate your strain when cloning a new tamagotchi. This is an ongoing development, currently 1/10 gen-2 characters available.
 
 The shell script tamacare.sh calls R procedures that are listed in the R folder:
 -	proc_clock.R sets up the time of the virtual device.
@@ -48,7 +50,7 @@ The shell script tamacare.sh calls R procedures that are listed in the R folder:
 -	proc_tamacare.R is the core procedure that cares for the tamagotchi. In a nutshell, this is a loop that regularly observes the screen and takes actions if needed. It can be stopped by 2 events: the closure of the tamatool window (NB: this is not instant and you may experience some xdotool interference for a few seconds/minutes) ; or the death – sorry, I meant the departure for its home planet of your beloved pet.
 -	proc_multiple.R is available in the R folder but not called from the tamacare.sh launcher. Basically, once you've gathered a tamagotchi collection in a folder, you can use this procedure to quickly display your zoo. Tamacare is not able to care for more than 1 tamagotchi at the same time so you will have to endorse this responsability. My tribe is always eager for a walk out:  
 
-![resized](https://user-images.githubusercontent.com/13364928/168871671-1fdff2be-4d4b-4d6e-a08f-059986d3e258.png)
+![resized](https://user-images.githubusercontent.com/13364928/169094610-59f52cea-baea-4776-b6da-6d10641ec682.png)
 
 -	proc_analysis.R transforms the log of the proc_tamacare.R call into a graphical display, that allows studying the events that occurred all along your tamagotchi life. For instance, the first 2 days of your tamagotchi may look like this:
 
@@ -58,4 +60,4 @@ We can observe that the baby stage is challenging: the hunger and happiness para
 
 Hopefully, tamacare should assist xenobiologists get more insight into the tamagotchi life cycle and evolutionary pathways, for the well-being of this adorable creature as well as for our great entertainment.
 
-Don’t hesitate support their creator Bandai: official gen-1/gen-2 tamagotchis are often available on the e-market platforms!
+Don’t hesitate support their creator Bandai: official gen-1/gen-2 tamagotchis are often available on the e-market platforms! A special 25th birthday edition has been released in some large retailers 🎂
