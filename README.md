@@ -40,9 +40,7 @@ Xdotool is tamacares hands: it emulates keyboard inputs to control tamatool. The
 
 ## Use
 
-Tamacare can be launched from a script: tamacare.sh. It is tuned to deliver a mametchi, the optimal evolution in terms of health and lifespan. By varying the time_obs, time_param and disc parameters, you can decline all possible tamagotchi evolutions for the gen-1 strain. The parameters are listed and described as the file header. The parameter dir_tamatool is the directory of the tamatool executable file. The parameter tam_speed can take the values “one” or “ten”, both working well. The value “max” is also available but tamacare cannot follow the pace. Beware the file name “save0.bin” must be available in the tamatool/linux folder.
-
-Tamatool is not only an emulator for the ROM, it also provides a tool to edit the ROM's sprites in a clean way. Using this feature, and thanks to the respective closeness of gen-1 and gen-2 characters, it is possible to switch the sprites from one generation to another. This is not a perfect emulation of gen-2: some animations vary slightly, and the "number game" is not available. Tamacare comes with 2 transgenic constructions in the sprites folder ("gen1" which is native from the ROM, and "gen2" manually edited using mtPaint), allowing you to mutate your strain when cloning a new tamagotchi. This is an ongoing development, currently 3/10 gen-2 characters are available. Aside this, "genS" is a special strain of my own creation.
+Tamacare can be launched from a script: tamacare.sh. It is tuned to deliver a mametchi, the optimal evolution in terms of health and lifespan. By varying the time_obs, time_param and disc parameters, you can decline all possible tamagotchi evolutions. The parameters are listed and described as the file header. The parameter dir_tamatool is the directory of the tamatool executable file. The parameter tam_speed can take the values “one” or “ten”, both working well. The value “max” is also available but tamacare cannot follow the pace. Beware the file name “save0.bin” must be available in the tamatool/linux folder.
 
 The shell script tamacare.sh calls R procedures that are listed in the R folder:
 -	proc_clock.R sets up the time of the virtual device.
@@ -58,6 +56,17 @@ The shell script tamacare.sh calls R procedures that are listed in the R folder:
 
 We can observe that the baby stage is challenging: the hunger and happiness parameters were never completely full (nor completely empty) at each check. However, after the first evolution, identified by the second time the tamagotchi felt asleep, they never dropped below 3 hearts (apart from an erroneous, nocturne observation). The second instar dropped 4 poops a day and required being disciplined 4 times in total. The tamagotchi became sick twice, once at each stage.
 
-Hopefully, tamacare should assist xenobiologists get more insight into the tamagotchi life cycle and evolutionary pathways, for the well-being of this adorable creature as well as for our great entertainment.
+## Switching sprites
+
+Tamatool is not only an emulator for the ROM, it also provides a tool to edit the ROM's sprites in a clean way. Using this feature, it is possible to play with the tamagotchi genetics, mtPaint (http://mtpaint.sourceforge.net/) is very well suited for this purpose. Aside the native "gen1" strain, several transgenic lines are available in the sprites folder:
+- "gen1bis" is a slight edition of "gen1". The differences are the meals from gen2 ; the weight converted to metric ; the death animation ; and the secret character.
+- "gen2": thanks to the respective closeness of gen-1 and gen-2 characters, it is possible to switch the sprites from one generation to another. This is not a perfect emulation of gen-2: some animations vary slightly, and the "number game" is not available. This is an ongoing development, currently 4/10 gen-2 characters are available.
+- "genS" is a special strain of my own creation.
+
+When calling tamacare, you can specify which sprites to use with the gen argument. You can also draw and use your own sprites.
+
+## Final words
+
+Hopefully, tamacare should assist xenobiologists get more insight into the tamagotchi life cycle and evolutionary pathways, in order to optimize the husbandry of this adorable creature as well as for our greatest entertainment.
 
 Don’t hesitate support their creator Bandai: official gen-1/gen-2 tamagotchis are often available on the e-market platforms! A special 25th birthday edition has been released in some large retailers 🎂
