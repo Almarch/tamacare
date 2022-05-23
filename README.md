@@ -59,8 +59,8 @@ We can observe that the baby stage is challenging: the hunger and happiness para
 ## Switching sprites
 
 Tamatool is not only an emulator for the ROM, it also provides a tool to edit the ROM's sprites in a clean way. Using this feature, it is possible to play with the tamagotchi genetics, mtPaint (http://mtpaint.sourceforge.net/) is very well suited for this purpose. Aside the native "gen1" strain, several transgenic lines are available in the sprites folder:
-- "gen1bis" is a slight edition of "gen1". The differences are the meals from gen2 ; the weight converted to metric ; the death animation ; and the secret character.
 - "gen2": thanks to the respective closeness of gen-1 and gen-2 characters, it is possible to switch the sprites from one generation to another. This is not a perfect emulation of gen-2: some animations vary slightly, and the "number game" is not available. This is an ongoing development, currently 4/10 gen-2 characters are available.
+- "gen1bis" is a slight edition of "gen1". The only difference is a new but familiar secret character.
 - "genS" is a special strain of my own creation.
 
 When calling tamacare, you can specify which sprites to use with the gen argument. You can also draw and use your own sprites.
